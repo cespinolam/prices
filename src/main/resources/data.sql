@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS brands (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  description VARCHAR(255)
+  name VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS products (
   id INT PRIMARY KEY,
-  description VARCHAR(255)
+  name VARCHAR(255)
 );
 CREATE TABLE IF NOT EXISTS prices (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS prices (
   FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-INSERT INTO brands (description)
+INSERT INTO brands (name)
 VALUES ('ZARA');
 
-INSERT INTO products (id, description)
+INSERT INTO products (id, name)
 VALUES (35455,'Product A'), (35456,'Product B');
 
 INSERT INTO prices (brand_id, start_date, end_date, price_list, product_id, priority, price, currency)
