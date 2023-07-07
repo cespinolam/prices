@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @RestController
@@ -29,8 +27,9 @@ public class PriceController {
     @GetMapping
     public ResponseEntity<Price> getPriceByParameters(
            // @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-           @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-           @RequestParam("time") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time,
+          // @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+           //@RequestParam("time") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time,
+           @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date,
             @RequestParam("productId") Long productId,
             @RequestParam("brandId") Long brandId) {
 
@@ -38,12 +37,22 @@ public class PriceController {
             throw new InvalidRequestException("Invalid request parameters");
         }
 
-        Price price = priceService.getPriceByParameters(date, time, productId, brandId);
+        Price price = priceService.getPriceByParameters(date, productId, brandId);
 
         if (price != null) {
             return new ResponseEntity<>(price, HttpStatus.OK);
         }
 
         throw new PriceNotFoundException("Price not found for the given parameters");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Price> getPriceById(@PathVariable Long id) {
+        Price price = priceService.getPriceById(id);
+        if (price != null) {
+            return ResponseEntity.ok(price);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
