@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "PRICES")
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "BRAND_ID")
-    private Long brandId;
+    @ManyToOne
+    @JoinColumn(name = "BRAND_ID")
+    private Brand brand;
 
     @Column(name = "START_DATE")
     private LocalDateTime startDate;
@@ -20,8 +22,9 @@ public class Price {
     @Column(name = "PRICE_LIST")
     private Integer priceList;
 
-    @Column(name = "PRODUCT_ID")
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
 
     @Column(name = "PRIORITY")
     private Integer priority;
@@ -29,10 +32,22 @@ public class Price {
     @Column(name = "PRICE")
     private Double price;
 
-    @Column(name = "CURR")
-    private String curr;
+    @Column(name = "CURRENCY")
+    private String currency;
 
     public Price() {
+    }
+
+    public Price(Long id, Brand brand, LocalDateTime startDate, LocalDateTime endDate, Integer priceList, Product product, Integer priority, Double price, String currency) {
+        this.id = id;
+        this.brand = brand;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.priceList = priceList;
+        this.product = product;
+        this.priority = priority;
+        this.price = price;
+        this.currency = currency;
     }
 
     public Long getId() {
@@ -43,12 +58,20 @@ public class Price {
         this.id = id;
     }
 
-    public Long getBrandId() {
-        return brandId;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public LocalDateTime getStartDate() {
@@ -75,14 +98,6 @@ public class Price {
         this.priceList = priceList;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public Integer getPriority() {
         return priority;
     }
@@ -99,11 +114,11 @@ public class Price {
         this.price = price;
     }
 
-    public String getCurr() {
-        return curr;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setCurr(String curr) {
-        this.curr = curr;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }
