@@ -10,6 +10,9 @@ public class Product {
     @Column(name = "NAME")
     private String name;
 
+    public Product() {
+    }
+
     public Product(Long id, String name) {
         this.id = id;
         this.name = name;
