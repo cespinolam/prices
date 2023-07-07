@@ -1,7 +1,9 @@
 com\inditex\pricesapp\prices\application\exception\InvalidRequestException.class
 com\inditex\pricesapp\prices\domain\port\PriceRepository.class
+com\inditex\pricesapp\prices\domain\model\Brand.class
 com\inditex\pricesapp\prices\application\exception\PriceNotFoundException.class
 com\inditex\pricesapp\prices\adapter\controller\PriceController.class
 com\inditex\pricesapp\PricesApplication.class
 com\inditex\pricesapp\prices\domain\model\Price.class
 com\inditex\pricesapp\prices\application\port\PriceService.class
+com\inditex\pricesapp\prices\domain\model\Product.class
